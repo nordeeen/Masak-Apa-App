@@ -1,0 +1,50 @@
+{
+  "name": "MasakApa — AI Recipe Finder",
+  "short_name": "MasakApa",
+  "description": "Temukan ide menu masakan dari bahan yang ada di rumah, powered by AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0d",
+  "theme_color": "#0c0c0d",
+  "orientation": "portrait-primary",
+  "categories": ["food", "lifestyle"],
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cari Resep",
+      "short_name": "Cari",
+      "description": "Cari resep dari bahan yang ada",
+      "url": "/",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Resep Favorit",
+      "short_name": "Favorit",
+      "description": "Lihat resep yang sudah disimpan",
+      "url": "/saved",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

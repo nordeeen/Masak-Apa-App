@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap');
+@import 'tailwindcss';
+
+/* ── Custom colors via CSS variables (Tailwind v4 way) ── */
+@theme {
+  --color-base: #0c0c0d;
+  --color-surface: #141415;
+  --color-card: #1c1c1e;
+  --color-card2: #242426;
+  --color-border: #2a2a2d;
+  --color-border2: #333336;
+
+  --color-accent: #f59e0b;
+  --color-accent-light: #fbbf24;
+  --color-accent-dark: #ea6a0a;
+  --color-accent-muted: #92610a;
+
+  --color-text-primary: #f0ede8;
+  --color-text-secondary: #8a8680;
+  --color-text-muted: #4a4845;
+
+  --color-success: #34d399;
+
+  --font-display: 'Instrument Serif', serif;
+  --font-body: 'Geist', sans-serif;
+
+  --animate-fade-up: fadeUp 0.4s ease forwards;
+  --animate-pop-in: popIn 0.18s ease forwards;
+  --animate-spin-slow: spin 1s linear infinite;
+}
+
+/* ── Keyframes ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Base styles ── */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-muted);
+}
