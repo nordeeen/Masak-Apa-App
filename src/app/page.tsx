@@ -114,16 +114,13 @@ export default function Home() {
           <section className="animate-[fadeUp_0.4s_ease]">
             {/* Hero */}
             <div className="mb-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent/20 bg-accent/5 text-accent text-[11px] font-semibold uppercase tracking-wider mb-5">
-                ✦ Powered by Gemini AI
-              </div>
-              <h1 className="font-display text-5xl md:text-6xl leading-[1.05] tracking-tight text-text-primary mb-4">
+              <h1 className="font-display text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight text-text-primary mb-4">
                 Bingung mau
                 <br />
-                masak <em className="italic text-accent">apa?</em>
+                masak <em className="italic text-accent not-italic">apa?</em>
               </h1>
-              <p className=" text-base leading-relaxed max-w-md">
-                Masukkan bahan yang ada di dapur — AI akan carikan ide menu
+              <p className="leading-relaxed max-w-md text-text-secondary">
+                Masukkan bahan yang ada di dapurmu, AI akan carikan ide menu
                 lengkap dengan cara masak dan video tutorialnya.
               </p>
             </div>
@@ -148,11 +145,11 @@ export default function Home() {
             <button
               onClick={handleFindMenus}
               disabled={ingredients.length === 0}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-accent hover:bg-accent-light text-white font-semibold rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
               🔍 Carikan Menu untuk Aku
               {ingredients.length > 0 && (
-                <span className="bg-black/20 text-black text-xs font-bold px-2 py-0.5 rounded-full">
+                <span className="bg-white/20 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                   {ingredients.length} bahan
                 </span>
               )}
@@ -171,11 +168,11 @@ export default function Home() {
           <section className="animate-[fadeUp_0.4s_ease]">
             <button
               onClick={() => setStep(1)}
-              className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary mb-6 transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent mb-6 transition-colors"
             >
               ← Ganti Bahan
             </button>
-            <h2 className="font-display text-3xl text-text-primary mb-2">
+            <h2 className="font-display text-3xl font-bold text-text-primary mb-2">
               Pilih menu yang mau dimasak
             </h2>
             <p className="text-sm text-text-secondary mb-8">
@@ -186,7 +183,7 @@ export default function Home() {
             <button
               onClick={handleGetRecipe}
               disabled={!selectedMenu}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none mt-6"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-accent hover:bg-accent-light text-white font-semibold rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none mt-6"
             >
               Lihat Cara Memasak →
             </button>
@@ -198,7 +195,7 @@ export default function Home() {
           <section className="animate-[fadeUp_0.4s_ease]">
             <button
               onClick={() => setStep(2)}
-              className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary mb-6 transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent mb-6 transition-colors"
             >
               ← Pilih Menu Lain
             </button>

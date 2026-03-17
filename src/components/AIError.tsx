@@ -85,19 +85,19 @@ export default function AIError({ type, onRetry, onBack }: AIErrorProps) {
   const router = useRouter();
 
   const colorMap: Record<string, string> = {
-    amber: 'border-yellow-500/30 bg-yellow-500/5',
-    red: 'border-red-500/30 bg-red-500/5',
-    orange: 'border-orange-500/30 bg-orange-500/5',
-    blue: 'border-blue-500/30 bg-blue-500/5',
-    gray: 'border-border bg-surface',
+    amber: 'border-amber-300/40 bg-amber-50',
+    red: 'border-red-300/40 bg-red-50',
+    orange: 'border-orange-300/40 bg-orange-50',
+    blue: 'border-blue-300/40 bg-blue-50',
+    gray: 'border-border bg-card2',
   };
 
   const badgeMap: Record<string, string> = {
-    amber: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-    red: 'bg-red-500/10 text-red-400 border-red-500/20',
-    orange: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
-    blue: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-    gray: 'bg-surface text-text-secondary border-border',
+    amber: 'bg-amber-100 text-amber-700 border-amber-200',
+    red: 'bg-red-100 text-red-700 border-red-200',
+    orange: 'bg-orange-100 text-orange-700 border-orange-200',
+    blue: 'bg-blue-100 text-blue-700 border-blue-200',
+    gray: 'bg-card2 text-text-secondary border-border',
   };
 
   return (
@@ -107,7 +107,7 @@ export default function AIError({ type, onRetry, onBack }: AIErrorProps) {
         className={`w-full max-w-md border rounded-2xl p-8 mb-6 ${colorMap[config.color]}`}
       >
         <div className="text-5xl mb-4 text-center">{config.emoji}</div>
-        <h2 className="font-display text-2xl font-semibold text-text-primary text-center mb-3">
+        <h2 className="font-display text-2xl font-bold text-text-primary text-center mb-3">
           {config.title}
         </h2>
         <p className="text-text-secondary text-sm text-center leading-relaxed mb-6">
@@ -147,7 +147,7 @@ export default function AIError({ type, onRetry, onBack }: AIErrorProps) {
         </div>
       </div>
 
-      {/* Manual fallback - cari di YouTube */}
+      {/* Manual fallback */}
       <div className="w-full max-w-md">
         <p className="text-xs text-text-muted text-center mb-3 uppercase tracking-wider">
           Sementara itu, cari resep manual di YouTube
@@ -159,9 +159,9 @@ export default function AIError({ type, onRetry, onBack }: AIErrorProps) {
               href={`https://www.youtube.com/results?search_query=${encodeURIComponent(s.query)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2.5 p-3 bg-card border border-border rounded-xl
+              className="flex items-center gap-2.5 p-3 bg-surface border border-border rounded-xl
                          text-sm text-text-secondary hover:text-text-primary
-                         hover:border-accent/40 transition-all duration-200 group"
+                         hover:border-accent/40 transition-all duration-200 group card-shadow"
             >
               <span className="text-xl group-hover:scale-110 transition-transform">
                 {s.emoji}

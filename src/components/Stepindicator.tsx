@@ -3,10 +3,10 @@
 import { AppStep } from '../types';
 import { useAppStore } from '../store/useAppStore';
 
-const STEPS: { id: AppStep; label: string }[] = [
-  { id: 1, label: 'Pilih Bahan' },
-  { id: 2, label: 'Pilih Menu' },
-  { id: 3, label: 'Lihat Resep' },
+const STEPS: { id: AppStep; label: string; icon: string }[] = [
+  { id: 1, label: 'Pilih Bahan', icon: '🥬' },
+  { id: 2, label: 'Pilih Menu', icon: '🍽' },
+  { id: 3, label: 'Lihat Resep', icon: '📖' },
 ];
 
 export default function StepIndicator() {
@@ -24,9 +24,9 @@ export default function StepIndicator() {
             <div
               className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 isActive
-                  ? 'bg-accent text-white shadow-lg shadow-accent/25'
+                  ? 'bg-accent text-white shadow-md shadow-accent/20'
                   : isDone
-                    ? 'text-success'
+                    ? 'text-secondary'
                     : 'text-text-muted'
               }`}
             >
@@ -34,9 +34,9 @@ export default function StepIndicator() {
               <span
                 className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                   isActive
-                    ? 'bg-white/20 text-white'
+                    ? 'bg-white/25 text-white'
                     : isDone
-                      ? 'bg-success text-base'
+                      ? 'bg-secondary text-white'
                       : 'bg-border text-text-muted'
                 }`}
               >
@@ -49,7 +49,7 @@ export default function StepIndicator() {
             {idx < STEPS.length - 1 && (
               <div
                 className={`w-8 h-px transition-all duration-500 ${
-                  s.id < step ? 'bg-success/40' : 'bg-border'
+                  s.id < step ? 'bg-secondary/40' : 'bg-border'
                 }`}
               />
             )}

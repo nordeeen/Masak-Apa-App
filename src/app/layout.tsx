@@ -3,7 +3,7 @@ import './globals.css';
 import PWAProvider from '../components/PWAProvider';
 
 export const viewport: Viewport = {
-  themeColor: '#0c0c0d',
+  themeColor: '#FEFCF9',
   width: 'device-width',
   initialScale: 1,
   minimumScale: 1,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent',
+    statusBarStyle: 'default',
     title: 'MasakApa',
     startupImage: '/icons/icon-512.png',
   },
@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className="dark">
+    <html lang="id">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -48,7 +48,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
           rel="stylesheet"
         />
         {/* iOS PWA meta */}
@@ -56,7 +56,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
           name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent"
+          content="default"
         />
         <meta name="apple-mobile-web-app-title" content="MasakApa" />
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />

@@ -1,14 +1,43 @@
 'use client';
+import { useEffect, useState } from 'react';
 
 interface LoadingStateProps {
   message?: string;
+  messages?: string[];
   sub?: string;
 }
 
+const DEFAULT_MESSAGES = [
+  'Menganalisis bahan...',
+  'Mencari kombinasi menu...',
+  'Menyiapkan rekomendasi...',
+  'Hampir selesai...',
+];
+
 export default function LoadingState({
-  message = 'AI sedang berpikir...',
+  message,
+  messages = DEFAULT_MESSAGES,
   sub = 'Sebentar ya 🔍',
 }: LoadingStateProps) {
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  const list = message ? [message] : messages;
+
+  useEffect(() => {
+    if (list.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % list.length);
+        setVisible(true);
+      }, 300);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [list.length]);
+
   return (
     <div className="flex flex-col items-center justify-center py-24 animate-fade-up">
       {/* Spinner */}
@@ -19,16 +48,23 @@ export default function LoadingState({
         </div>
       </div>
 
-      <p className="font-display text-xl text-text-primary mb-2">{message}</p>
+      {/* Rotating message */}
+      <p
+        className="font-display text-xl font-semibold text-text-primary mb-2 transition-opacity duration-300"
+        style={{ opacity: visible ? 1 : 0 }}
+      >
+        {list[index]}
+      </p>
       <p className="text-sm text-text-secondary">{sub}</p>
 
-      {/* Animated dots */}
+      {/* Progress dots */}
       <div className="flex gap-1.5 mt-6">
-        {[0, 1, 2].map((i) => (
+        {list.map((_, i) => (
           <div
             key={i}
-            className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"
-            style={{ animationDelay: `${i * 0.2}s` }}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === index ? 'w-4 bg-accent' : 'w-1.5 bg-accent/25'
+            }`}
           />
         ))}
       </div>

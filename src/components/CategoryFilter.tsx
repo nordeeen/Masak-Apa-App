@@ -21,8 +21,8 @@ export default function CategoryFilter() {
           onClick={() => setCategory(cat.value)}
           className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-150 ${
             selectedCategory === cat.value
-              ? 'border-accent bg-accent/10 text-accent'
-              : 'border-border bg-card text-text-secondary hover:border-accent/40 hover:text-text-primary'
+              ? 'border-accent bg-accent text-white shadow-sm shadow-accent/20'
+              : 'border-border bg-surface text-text-secondary hover:border-accent/40 hover:text-accent'
           }`}
         >
           {cat.label}

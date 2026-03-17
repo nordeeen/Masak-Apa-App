@@ -31,7 +31,7 @@ export default function IngredientInput() {
   return (
     <div className="space-y-4">
       {/* Input box */}
-      <div className="bg-card border border-border rounded-2xl p-5 focus-within:border-accent/40 focus-within:shadow-[0_0_0_3px_rgba(245,158,11,0.06)] transition-all duration-200">
+      <div className="bg-surface border border-border rounded-2xl p-5 card-shadow focus-within:border-accent/40 focus-within:shadow-[0_0_0_3px_rgba(255,107,53,0.08)] transition-all duration-200">
         <div className="flex gap-3 items-center">
           <input
             type="text"
@@ -44,7 +44,7 @@ export default function IngredientInput() {
           <button
             onClick={handleAdd}
             disabled={!value.trim()}
-            className="bg-accent hover:bg-accent-light disabled:opacity-30 disabled:cursor-not-allowed text-black font-semibold text-sm px-4 py-2 rounded-xl transition-all duration-150 hover:-translate-y-0.5 whitespace-nowrap"
+            className="bg-accent hover:bg-accent-light disabled:opacity-30 disabled:cursor-not-allowed text-white font-semibold text-sm px-4 py-2 rounded-xl transition-all duration-150 hover:-translate-y-0.5 whitespace-nowrap"
           >
             + Tambah
           </button>
@@ -60,12 +60,12 @@ export default function IngredientInput() {
             ingredients.map((ing) => (
               <span
                 key={ing}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent/8 border border-accent/20 rounded-lg text-xs font-medium text-amber-300 animate-[popIn_0.18s_ease]"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent/8 border border-accent/20 rounded-lg text-xs font-medium text-accent-dark animate-[popIn_0.18s_ease]"
               >
                 {ing}
                 <button
                   onClick={() => removeIngredient(ing)}
-                  className="text-text-muted hover:text-red-400 text-sm leading-none transition-colors"
+                  className="text-text-muted hover:text-danger text-sm leading-none transition-colors"
                   aria-label={`Hapus ${ing}`}
                 >
                   ×
@@ -86,7 +86,7 @@ export default function IngredientInput() {
             key={q.value}
             onClick={() => addIngredient(q.value)}
             disabled={ingredients.includes(q.value)}
-            className="px-3 py-1.5 rounded-full border border-border bg-transparent text-xs font-medium text-text-secondary hover:border-accent/50 hover:text-accent hover:bg-accent/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-150"
+            className="px-3 py-1.5 rounded-full border border-border bg-surface text-xs font-medium text-text-secondary hover:border-accent/50 hover:text-accent hover:bg-accent/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-150"
           >
             {q.label}
           </button>

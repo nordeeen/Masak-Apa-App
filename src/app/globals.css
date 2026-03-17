@@ -1,28 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
 @import 'tailwindcss';
 
-/* ── Custom colors via CSS variables (Tailwind v4 way) ── */
+/* ── Fresh Food Theme — Color System ── */
 @theme {
-  --color-base: #0c0c0d;
-  --color-surface: #141415;
-  --color-card: #1c1c1e;
-  --color-card2: #242426;
-  --color-border: #2a2a2d;
-  --color-border2: #333336;
+  --color-base: #FEFCF9;
+  --color-surface: #FFFFFF;
+  --color-card: #FFFFFF;
+  --color-card2: #FBF8F4;
+  --color-border: #E8E2DA;
+  --color-border2: #D4CEC6;
 
-  --color-accent: #f59e0b;
-  --color-accent-light: #fbbf24;
-  --color-accent-dark: #ea6a0a;
-  --color-accent-muted: #92610a;
+  --color-accent: #FF6B35;
+  --color-accent-light: #FF8A5C;
+  --color-accent-dark: #E55A2B;
+  --color-accent-muted: #FFD4C0;
 
-  --color-text-primary: #f0ede8;
-  --color-text-secondary: #8a8680;
-  --color-text-muted: #4a4845;
+  --color-secondary: #5B8C5A;
+  --color-secondary-light: #7CAB7B;
 
-  --color-success: #34d399;
+  --color-text-primary: #2D2A26;
+  --color-text-secondary: #78716C;
+  --color-text-muted: #B8B0A8;
 
-  --font-display: 'Instrument Serif', serif;
-  --font-body: 'Geist', sans-serif;
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
 
   --animate-fade-up: fadeUp 0.4s ease forwards;
   --animate-pop-in: popIn 0.18s ease forwards;
@@ -52,9 +56,14 @@
   }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
 /* ── Base styles ── */
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -70,12 +79,64 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-surface);
+  background: var(--color-base);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-border);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-muted);
+  background: var(--color-border2);
+}
+
+/* ── Reusable button classes ── */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-accent);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--color-accent-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.25);
+}
+
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border2);
+  background: var(--color-card2);
+}
+
+/* ── Soft card shadow ── */
+.card-shadow {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+}
+.card-shadow-hover:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
 }

@@ -31,29 +31,33 @@ function MenuCard({
   return (
     <div
       onClick={onSelect}
-      className={`relative bg-card rounded-2xl p-5 cursor-pointer border transition-all duration-200 overflow-hidden
-        hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30
+      className={`relative bg-surface rounded-2xl p-5 cursor-pointer border transition-all duration-200 overflow-hidden card-shadow card-shadow-hover
+        hover:-translate-y-1
         ${
           selected
-            ? 'border-accent shadow-lg shadow-accent/10 bg-accent/5'
+            ? 'border-accent shadow-lg shadow-accent/10 ring-2 ring-accent/20'
             : 'border-border hover:border-accent/30'
         }`}
     >
       {/* top accent line */}
       <div
-        className={`absolute top-0 left-0 right-0 h-0.5 bg-accent transition-transform duration-200 origin-left ${
-          selected ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+        className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-accent to-accent-light transition-transform duration-200 origin-left ${
+          selected ? 'scale-x-100' : 'scale-x-0'
         }`}
       />
 
       {/* category badge */}
-      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-surface text-text-muted mb-3">
+      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-card2 text-text-secondary mb-3">
         {menu.category}
       </span>
 
       {/* emoji + name */}
-      <div className="text-3xl mb-2">{menu.emoji}</div>
-      <h3 className="font-display text-lg text-text-primary mb-1 leading-tight">
+      <img
+        src={menu.imageUrl}
+        alt={menu.name}
+        className="h-10 w-10 object-contain"
+      />
+      <h3 className="font-display text-lg font-semibold text-text-primary mb-1 leading-tight">
         {menu.name}
       </h3>
 
@@ -74,7 +78,7 @@ function MenuCard({
           {menu.matchedIngredients.map((ing) => (
             <span
               key={ing}
-              className="px-2 py-0.5 rounded-full text-[10px] bg-green-500/8 border border-green-500/20 text-green-400"
+              className="px-2 py-0.5 rounded-full text-[10px] bg-secondary/8 border border-secondary/20 text-secondary font-medium"
             >
               ✓ {ing}
             </span>
@@ -84,7 +88,7 @@ function MenuCard({
 
       {/* selected check */}
       {selected && (
-        <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-accent flex items-center justify-center text-black text-xs font-bold">
+        <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-accent flex items-center justify-center text-white text-xs font-bold">
           ✓
         </div>
       )}

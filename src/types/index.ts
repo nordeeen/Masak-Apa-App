@@ -16,6 +16,8 @@ export interface MenuSuggestion {
   category: string;
   estimatedTime: string; // e.g. "20 mnt"
   difficulty: 'Mudah' | 'Sedang' | 'Sulit';
+  imageUrl: string;
+  imageUrlFallback: string;
   shortDesc: string;
   matchedIngredients: string[]; // bahan dari user yang cocok
 }
