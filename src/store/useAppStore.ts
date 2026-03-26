@@ -1,43 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import {
-  AppState,
-  AppStep,
-  Category,
-  MenuSuggestion,
-  RecipeDetail,
-  SavedRecipe,
-} from '../types';
+import { AppStep, AppStore, Category, SavedRecipe } from '../types';
 import { AIErrorType } from '../lib/api';
-
-interface AppStore {
-  step: AppStep;
-  ingredients: string[];
-  selectedCategory: Category;
-  menuSuggestions: MenuSuggestion[];
-  selectedMenu: MenuSuggestion | null;
-  recipeDetail: RecipeDetail | null;
-  isLoading: boolean;
-  loadingMessage: string;
-  error: string | null;
-  errorType: AIErrorType | null;
-  savedRecipes: SavedRecipe[];
-
-  setStep: (step: AppStep) => void;
-  addIngredient: (ingredient: string) => void;
-  removeIngredient: (ingredient: string) => void;
-  clearIngredients: () => void;
-  setCategory: (category: Category) => void;
-  setLoading: (loading: boolean, message?: string) => void;
-  setError: (error: string | null, errorType?: AIErrorType) => void;
-  setMenuSuggestions: (menus: MenuSuggestion[]) => void;
-  selectMenu: (menu: MenuSuggestion) => void;
-  setRecipeDetail: (recipe: RecipeDetail) => void;
-  saveRecipe: (recipe: RecipeDetail, menu: MenuSuggestion) => void;
-  unsaveRecipe: (menuId: string) => void;
-  isRecipeSaved: (menuId: string) => boolean;
-  reset: () => void;
-}
 
 const initialState = {
   step: 1 as AppStep,

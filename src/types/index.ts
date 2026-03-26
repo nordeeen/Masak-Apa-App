@@ -1,6 +1,4 @@
-// ===========================
-// CORE TYPES
-// ===========================
+import { AIErrorType } from '@/lib/api';
 
 export type Category =
   | 'Semua'
@@ -43,10 +41,6 @@ export interface Ingredient {
   isUserHave?: boolean; // apakah user sudah punya bahan ini
 }
 
-// ===========================
-// STATE TYPES
-// ===========================
-
 export type AppStep = 1 | 2 | 3;
 
 export interface AppState {
@@ -61,10 +55,6 @@ export interface AppState {
   error: string | null;
 }
 
-// ===========================
-// API TYPES
-// ===========================
-
 export interface GeminiMenuResponse {
   menus: MenuSuggestion[];
 }
@@ -72,10 +62,6 @@ export interface GeminiMenuResponse {
 export interface GeminiRecipeResponse {
   recipe: RecipeDetail;
 }
-
-// ===========================
-// LOCAL STORAGE
-// ===========================
 
 export interface SavedRecipe {
   id: string;
@@ -85,4 +71,55 @@ export interface SavedRecipe {
   estimatedTime: string;
   savedAt: string; // ISO date string
   recipeDetail: RecipeDetail;
+}
+
+export interface AIErrorProps {
+  type:
+    | 'rate_limit'
+    | 'api_error'
+    | 'parse_error'
+    | 'network_error'
+    | 'unknown';
+  onRetry?: () => void;
+  onBack?: () => void;
+}
+
+export interface LoadingStateProps {
+  message?: string;
+  messages?: string[];
+  sub?: string;
+}
+
+export interface Props {
+  recipe: RecipeDetail;
+  menu: MenuSuggestion;
+}
+
+export interface AppStore {
+  step: AppStep;
+  ingredients: string[];
+  selectedCategory: Category;
+  menuSuggestions: MenuSuggestion[];
+  selectedMenu: MenuSuggestion | null;
+  recipeDetail: RecipeDetail | null;
+  isLoading: boolean;
+  loadingMessage: string;
+  error: string | null;
+  errorType: AIErrorType | null;
+  savedRecipes: SavedRecipe[];
+
+  setStep: (step: AppStep) => void;
+  addIngredient: (ingredient: string) => void;
+  removeIngredient: (ingredient: string) => void;
+  clearIngredients: () => void;
+  setCategory: (category: Category) => void;
+  setLoading: (loading: boolean, message?: string) => void;
+  setError: (error: string | null, errorType?: AIErrorType) => void;
+  setMenuSuggestions: (menus: MenuSuggestion[]) => void;
+  selectMenu: (menu: MenuSuggestion) => void;
+  setRecipeDetail: (recipe: RecipeDetail) => void;
+  saveRecipe: (recipe: RecipeDetail, menu: MenuSuggestion) => void;
+  unsaveRecipe: (menuId: string) => void;
+  isRecipeSaved: (menuId: string) => boolean;
+  reset: () => void;
 }

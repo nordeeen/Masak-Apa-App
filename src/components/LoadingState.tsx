@@ -1,27 +1,15 @@
 'use client';
+import { DEFAULT_MESSAGES } from '@/constants';
+import { LoadingStateProps } from '@/types';
 import { useEffect, useState } from 'react';
-
-interface LoadingStateProps {
-  message?: string;
-  messages?: string[];
-  sub?: string;
-}
-
-const DEFAULT_MESSAGES = [
-  'Menganalisis bahan...',
-  'Mencari kombinasi menu...',
-  'Menyiapkan rekomendasi...',
-  'Hampir selesai...',
-];
 
 export default function LoadingState({
   message,
   messages = DEFAULT_MESSAGES,
-  sub = 'Sebentar ya 🔍',
+  sub = 'Sebentar ya ...',
 }: LoadingStateProps) {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
-
   const list = message ? [message] : messages;
 
   useEffect(() => {

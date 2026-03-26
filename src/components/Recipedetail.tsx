@@ -1,58 +1,32 @@
 'use client';
-
-import { useState } from 'react';
-import { useAppStore } from '../store/useAppStore';
-import type {
-  RecipeDetail as RecipeDetailType,
-  MenuSuggestion,
-} from '../types';
-
-interface Props {
-  recipe: RecipeDetailType;
-  menu: MenuSuggestion;
-}
+import { Copy01Icon } from 'hugeicons-react';
+import { useRecipeActions } from '@/hooks/useRecipeAction';
+import type { RecipeDetail, Props } from '../types';
 
 export default function RecipeDetail({ recipe, menu }: Props) {
-  const { saveRecipe, unsaveRecipe, isRecipeSaved, reset } = useAppStore();
-  const [saved, setSaved] = useState(() => isRecipeSaved(menu.id));
-
-  function toggleSave() {
-    if (saved) {
-      unsaveRecipe(menu.id);
-      setSaved(false);
-    } else {
-      saveRecipe(recipe, menu);
-      setSaved(true);
-    }
-  }
-
-  const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(
-    recipe.youtubeSearchQuery,
-  )}`;
+  const { saved, copied, handleCopy, toggleSave, youtubeUrl, reset } =
+    useRecipeActions(recipe, menu);
 
   return (
-    <div>
-      {/* Header card */}
+    <div className="w-full">
       <div className="bg-surface border border-border rounded-2xl p-6 mb-4 flex gap-5 items-start card-shadow">
-        <div className="text-6xl leading-none shrink-0">{recipe.emoji}</div>
         <div className="flex-1 min-w-0">
-          <h2 className="font-display text-3xl font-bold text-text-primary leading-tight mb-2">
-            {recipe.name}
+          <h2 className="font-display text-3xl font-bold text-text-primary leading-tight mb-2 text-center">
+            {recipe.name ?? '-'}
           </h2>
           <p className="text-sm text-text-secondary leading-relaxed mb-4">
-            {recipe.description}
+            {recipe.description ?? '-'}
           </p>
           <div className="flex gap-5">
-            <Stat value={`⏱ ${recipe.estimatedTime}`} label="Waktu" />
-            <Stat value={`${recipe.servings} porsi`} label="Porsi" />
-            <Stat value={recipe.difficulty} label="Level" />
+            <Stat value={`⏱ ${recipe.estimatedTime ?? '-'}`} label="Waktu" />
+            <Stat value={`${recipe.servings ?? '-'} porsi`} label="Porsi" />
+            <Stat value={recipe.difficulty ?? '-'} label="Level" />
           </div>
         </div>
       </div>
 
       {/* Bahan + Langkah */}
       <div className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-4 mb-4">
-        {/* Bahan */}
         <div className="bg-surface border border-border rounded-2xl p-5 card-shadow">
           <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
             🛒 Bahan-Bahan
@@ -78,9 +52,16 @@ export default function RecipeDetail({ recipe, menu }: Props) {
 
         {/* Langkah */}
         <div className="bg-surface border border-border rounded-2xl p-5 card-shadow">
-          <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
-            📝 Cara Memasak
-          </h3>
+          <div className="flex justify-between">
+            <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
+              📝 Cara Memasak
+            </h3>
+            <Copy01Icon
+              onClick={handleCopy}
+              className={`h-5 w-5 shrink-0 cursor-pointer transition-colors duration-200 
+                ${copied ? 'text-green-500' : 'text-text-muted hover:text-accent'}`}
+            />
+          </div>
           <ol className="space-y-4">
             {recipe.steps.map((step, i) => (
               <li
@@ -110,7 +91,8 @@ export default function RecipeDetail({ recipe, menu }: Props) {
         href={youtubeUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-4 p-4 bg-surface border border-border rounded-xl hover:border-red-400/40 hover:-translate-y-0.5 transition-all duration-200 mb-4 no-underline group card-shadow"
+        className="flex items-center gap-4 p-4 bg-surface border border-border rounded-xl hover:border-red-400/40 
+        hover:-translate-y-0.5 transition-all duration-200 mb-4 no-underline group card-shadow"
       >
         <div className="w-20 h-14 bg-card2 rounded-lg flex items-center justify-center text-2xl border border-border shrink-0">
           ▶️
@@ -131,8 +113,9 @@ export default function RecipeDetail({ recipe, menu }: Props) {
       {/* Actions */}
       <div className="flex gap-3 items-center">
         <button
+          type="button"
           onClick={toggleSave}
-          className={`flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+          className={`flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-medium transition-all duration-200 whitespace-nowrap cursor-pointer ${
             saved
               ? 'border-red-400/40 text-red-500 bg-red-50'
               : 'border-border text-text-secondary bg-surface hover:border-red-400/40 hover:text-red-500 card-shadow'
@@ -141,8 +124,10 @@ export default function RecipeDetail({ recipe, menu }: Props) {
           {saved ? '♥ Tersimpan' : '♡ Simpan Resep'}
         </button>
         <button
+          type="button"
           onClick={reset}
-          className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-accent hover:bg-accent-light text-white font-semibold text-sm rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
+          className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-accent cursor-pointer
+           hover:bg-accent-light text-white font-semibold text-sm rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
         >
           🔄 Cari Menu Baru
         </button>
@@ -154,7 +139,9 @@ export default function RecipeDetail({ recipe, menu }: Props) {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="font-display text-lg font-semibold text-accent">{value}</div>
+      <div className="font-display text-lg font-semibold text-accent">
+        {value}
+      </div>
       <div className="text-[10px] text-text-muted uppercase tracking-wider mt-0.5">
         {label}
       </div>
