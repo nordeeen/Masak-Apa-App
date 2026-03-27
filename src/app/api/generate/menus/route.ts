@@ -7,13 +7,27 @@ import {
   generateMenuText,
 } from '@/lib/menusApi';
 import { getErrorStatus, handleApiError } from '@/lib/apiError';
+import { ratelimit } from '@/lib/ratelimit';
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
-      { error: 'GEMINI_API_KEY belum diset di .env.local' },
+      { error: 'Internal Server Error' },
       { status: 500 },
+    );
+  }
+
+  // Rate limit check
+  const ip = req.headers.get('x-forwarded-for') ?? 'anonymous';
+  const { success } = await ratelimit.limit(ip);
+  if (!success) {
+    return NextResponse.json(
+      {
+        error: 'Terlalu banyak request. Coba lagi sebentar.',
+        errorType: 'rate_limit',
+      },
+      { status: 429 },
     );
   }
 
