@@ -21,9 +21,19 @@ export default function Home() {
     error,
     errorType,
     setStep,
+    retryAfter,
+    hasHydrated,
   } = useAppStore();
 
   const { handleFindMenus, handleGetRecipe, handleBack } = useHomeActions();
+
+  if (!hasHydrated) {
+    return (
+      <PageShell>
+        <LoadingState message="Memuat..." />
+      </PageShell>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -38,6 +48,7 @@ export default function Home() {
       <PageShell>
         <AIError_Component
           type={errorType}
+          retryAfter={retryAfter}
           onRetry={step === 2 ? handleFindMenus : handleGetRecipe}
           onBack={handleBack}
         />

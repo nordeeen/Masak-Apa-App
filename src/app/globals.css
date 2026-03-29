@@ -3,27 +3,27 @@
 
 /* ── Fresh Food Theme — Color System ── */
 @theme {
-  --color-base: #FEFCF9;
-  --color-surface: #FFFFFF;
-  --color-card: #FFFFFF;
-  --color-card2: #FBF8F4;
-  --color-border: #E8E2DA;
-  --color-border2: #D4CEC6;
+  --color-base: #fefcf9;
+  --color-surface: #ffffff;
+  --color-card: #ffffff;
+  --color-card2: #fbf8f4;
+  --color-border: #e8e2da;
+  --color-border2: #d4cec6;
 
-  --color-accent: #FF6B35;
-  --color-accent-light: #FF8A5C;
-  --color-accent-dark: #E55A2B;
-  --color-accent-muted: #FFD4C0;
+  --color-accent: #ff6b35;
+  --color-accent-light: #ff8a5c;
+  --color-accent-dark: #e55a2b;
+  --color-accent-muted: #ffd4c0;
 
-  --color-secondary: #5B8C5A;
-  --color-secondary-light: #7CAB7B;
+  --color-secondary: #5b8c5a;
+  --color-secondary-light: #7cab7b;
 
-  --color-text-primary: #2D2A26;
-  --color-text-secondary: #78716C;
-  --color-text-muted: #B8B0A8;
+  --color-text-primary: #2d2a26;
+  --color-text-secondary: #78716c;
+  --color-text-muted: #b8b0a8;
 
-  --color-success: #22C55E;
-  --color-danger: #EF4444;
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
 
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -57,8 +57,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 /* ── Base styles ── */
@@ -87,6 +92,48 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-border2);
+}
+
+/* hide scrollbar tapi tetap bisa scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* globals.css */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Reusable button classes ── */
@@ -135,8 +182,12 @@ body {
 
 /* ── Soft card shadow ── */
 .card-shadow {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.03);
 }
 .card-shadow-hover:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.04);
 }

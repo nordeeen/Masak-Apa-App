@@ -33,7 +33,6 @@ export default function StepIndicator() {
               >
                 {isDone ? '✓' : s.id}
               </span>
-              {/* Label: hidden on very small screens, visible from xs up */}
               <span className="hidden xs:inline sm:inline">{s.label}</span>
             </div>
 

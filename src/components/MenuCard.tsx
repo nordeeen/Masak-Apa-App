@@ -25,7 +25,7 @@ export default function MenuCard({
           selected ? 'scale-x-100' : 'scale-x-0'
         }`}
       />
-      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-[#ff6b35] text-white mb-3">
+      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-accent text-white mb-3">
         {menu.category ?? '-'}
       </span>
       <h3 className="font-display text-lg font-semibold text-text-primary mb-1 leading-tight">

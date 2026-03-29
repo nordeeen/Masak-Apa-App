@@ -1,58 +1,34 @@
+import { AIErrorType } from '@/types';
 import { AppStep, Category } from '@/types';
 
-export const ERROR_CONFIG = {
+export const ERROR_CONFIG: Record<
+  AIErrorType,
+  { emoji: string; title: string; desc: string }
+> = {
   rate_limit: {
     emoji: '⏳',
-    title: 'Limit AI Hari Ini Habis',
-    desc: 'Gemini API gratis punya batas request harian. Kamu bisa coba lagi besok, atau gunakan resep manual dari sumber lain.',
-    color: 'amber',
-    tips: [
-      'Coba lagi besok — limit reset setiap tengah malam',
-      'Sementara itu, kamu bisa cari resep manual di bawah',
-    ],
+    title: 'Terlalu Banyak Request',
+    desc: 'Kamu sudah terlalu sering mencoba. Tunggu sebentar ya!',
   },
   api_error: {
-    emoji: '🔧',
-    title: 'AI Sedang Bermasalah',
-    desc: 'Server Gemini sedang tidak bisa dihubungi. Ini bukan salah kamu coba beberapa saat lagi.',
-    color: 'red',
-    tips: [
-      'Tunggu 1–2 menit lalu coba lagi',
-      'Cek koneksi internet kamu',
-      'Kalau masih error, kemungkinan server Gemini sedang down',
-    ],
+    emoji: '🔑',
+    title: 'Kesalahan API',
+    desc: 'Terjadi masalah dengan layanan AI. Coba lagi.',
   },
   parse_error: {
-    emoji: '😵',
-    title: 'AI Bingung Menjawab',
-    desc: 'AI memberikan jawaban yang tidak bisa dibaca aplikasi. Coba lagi dengan bahan yang lebih spesifik.',
-    color: 'orange',
-    tips: [
-      "Gunakan nama bahan yang umum, misal 'ayam' bukan 'unggas'",
-      'Coba kurangi jumlah bahan',
-      'Ulangi pencarian — biasanya berhasil di percobaan kedua',
-    ],
+    emoji: '⚠️',
+    title: 'Response Tidak Valid',
+    desc: 'AI memberikan jawaban yang tidak bisa dibaca. Coba lagi.',
   },
   network_error: {
     emoji: '📡',
-    title: 'Tidak Ada Koneksi Internet',
-    desc: 'Aplikasi tidak bisa menghubungi AI karena koneksi internet terputus.',
-    color: 'blue',
-    tips: [
-      'Periksa koneksi WiFi atau data kamu',
-      'Coba matikan dan nyalakan ulang WiFi',
-    ],
+    title: 'Tidak Ada Koneksi',
+    desc: 'Periksa koneksi internetmu dan coba lagi.',
   },
   unknown: {
-    emoji: '🤔',
-    title: 'Ada yang Tidak Beres',
-    desc: 'Terjadi kesalahan yang tidak diketahui. Coba lagi atau refresh halaman.',
-    color: 'gray',
-    tips: [
-      'Coba refresh halaman',
-      'Coba lagi dari awal',
-      'Kalau terus terjadi, cek console browser untuk detail error',
-    ],
+    emoji: '❓',
+    title: 'Terjadi Kesalahan',
+    desc: 'Terjadi kesalahan tidak diketahui. Coba lagi.',
   },
 };
 
@@ -94,6 +70,11 @@ export const DEFAULT_MESSAGES = [
   'Menyiapkan rekomendasi...',
   'Hampir selesai...',
 ];
+
+export const INGREDIENT_REGEX = /^[\p{L}\s\-']{2,40}$/u;
+export const KEYBOARD_SMASH_REGEX = /^[qwrtypsdfghjklzxcvbnm]{6,}$/i;
+export const REPEATED_CHAR_REGEX = /(.)\1{2,}/i;
+export const CONSONANT_CLUSTER_REGEX = /[^aiueo\s]{5,}/i;
 
 export const colorMap: Record<string, string> = {
   amber: 'border-amber-300/40 bg-amber-50',

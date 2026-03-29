@@ -129,7 +129,7 @@ export default function RecipeDetail({ recipe, menu }: Props) {
           className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-accent cursor-pointer
            hover:bg-accent-light text-white font-semibold text-sm rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
         >
-          🔄 Cari Menu Baru
+          Cari Menu Baru
         </button>
       </div>
     </div>

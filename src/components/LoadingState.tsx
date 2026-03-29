@@ -38,12 +38,12 @@ export default function LoadingState({
 
       {/* Rotating message */}
       <p
-        className="font-display text-xl font-semibold text-text-primary mb-2 transition-opacity duration-300"
+        className="font-display text-xl font-semibold text-text-primary mb-2 transition-opacity duration-300 text-center"
         style={{ opacity: visible ? 1 : 0 }}
       >
         {list[index]}
       </p>
-      <p className="text-sm text-text-secondary">{sub}</p>
+      <p className="text-sm text-text-secondary text-center">{sub}</p>
 
       {/* Progress dots */}
       <div className="flex gap-1.5 mt-6">

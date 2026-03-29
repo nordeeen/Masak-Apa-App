@@ -22,7 +22,7 @@ export function useHomeActions() {
       setStep(2);
     } catch (err) {
       if (err instanceof AIError) {
-        setError(err.message, err.errorType);
+        setError(err.message, err.errorType, err.retryAfter ?? null);
       } else {
         setError('Terjadi kesalahan tidak diketahui', 'unknown');
       }

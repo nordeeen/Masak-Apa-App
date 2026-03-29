@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import { useAppStore } from '@/store/useAppStore';
 import Navbar from '@/components/Navbar';
@@ -17,8 +16,9 @@ export default function SavedPage() {
         <Navbar />
         <main className="max-w-2xl mx-auto px-6 pb-24 pt-10">
           <button
+            type="button"
             onClick={() => setViewing(null)}
-            className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent mb-6 transition-colors cursor-pointer"
           >
             ← Kembali ke Favorit
           </button>

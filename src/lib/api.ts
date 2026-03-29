@@ -1,27 +1,17 @@
-import { Category, MenuSuggestion, RecipeDetail } from '../types';
-
-// ===========================
-// ERROR TYPE
-// ===========================
-
-export type AIErrorType =
-  | 'rate_limit'
-  | 'api_error'
-  | 'parse_error'
-  | 'network_error'
-  | 'unknown';
+import { AIErrorType, Category, MenuSuggestion, RecipeDetail } from '../types';
 
 export class AIError extends Error {
   constructor(
     public errorType: AIErrorType,
     message: string,
+    public retryAfter?: number,
   ) {
     super(message);
     this.name = 'AIError';
   }
 }
 
-// Map HTTP status / errorType string dari server ke AIErrorType
+// Map HTTP status / errorType string from server to AIErrorType
 function resolveErrorType(status: number, serverType?: string): AIErrorType {
   if (serverType === 'rate_limit' || status === 429) return 'rate_limit';
   if (serverType === 'api_error' || status === 400 || status === 403)
@@ -31,10 +21,7 @@ function resolveErrorType(status: number, serverType?: string): AIErrorType {
   return 'unknown';
 }
 
-// ===========================
 // FETCH MENU SUGGESTIONS
-// ===========================
-
 export async function fetchMenuSuggestions(
   ingredients: string[],
   category: Category,
@@ -52,23 +39,18 @@ export async function fetchMenuSuggestions(
       throw new AIError(
         resolveErrorType(res.status, data?.errorType),
         data?.error ?? 'Gagal mengambil menu',
+        data?.retryAfter,
       );
     }
 
     return data.menus as MenuSuggestion[];
   } catch (err) {
-    // Re-throw AIError langsung
     if (err instanceof AIError) throw err;
-
-    // Network error (fetch gagal total, misal offline)
     throw new AIError('network_error', 'Tidak ada koneksi internet');
   }
 }
 
-// ===========================
 // FETCH RECIPE DETAIL
-// ===========================
-
 export async function fetchRecipeDetail(
   menuName: string,
   ingredients: string[],
@@ -87,6 +69,7 @@ export async function fetchRecipeDetail(
       throw new AIError(
         resolveErrorType(res.status, data?.errorType),
         data?.error ?? 'Gagal mengambil resep',
+        data?.retryAfter,
       );
     }
 

@@ -1,8 +1,8 @@
 'use client';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import NavLink from './NavLink';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -33,8 +33,9 @@ export default function Navbar() {
 
         {/* Hamburger Button */}
         <button
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 rounded-lg hover:bg-card2 transition"
+          className="md:hidden p-2 rounded-lg hover:bg-card2 transition cursor-pointer"
         >
           <span className="text-xl">{isOpen ? '✕' : '☰'}</span>
         </button>
@@ -52,35 +53,5 @@ export default function Navbar() {
         </div>
       )}
     </nav>
-  );
-}
-
-/* Reusable Link Component */
-function NavLink({
-  href,
-  active,
-  children,
-  mobile = false,
-}: {
-  href: string;
-  active: boolean;
-  children: React.ReactNode;
-  mobile?: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      className={`
-        ${mobile ? 'block w-full' : ''}
-        px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200
-        ${
-          active
-            ? 'bg-accent/10 text-accent'
-            : 'text-text-secondary hover:text-text-primary hover:bg-card2'
-        }
-      `}
-    >
-      {children}
-    </Link>
   );
 }

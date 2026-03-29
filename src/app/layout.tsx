@@ -19,7 +19,6 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: 'default',
     title: 'MasakApa',
-    startupImage: '/icons/icon-512.png',
   },
   formatDetection: { telephone: false },
   openGraph: {
@@ -28,8 +27,8 @@ export const metadata: Metadata = {
     type: 'website',
   },
   icons: {
-    icon: '/icons/icon-192.png',
-    apple: '/icons/icon-192.png',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
   },
 };
 

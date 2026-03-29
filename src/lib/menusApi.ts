@@ -64,19 +64,23 @@ export async function generateMenuText(
   prompt: string,
 ): Promise<MenuSuggestion[]> {
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-2.5-flash-lite',
     contents: prompt,
     config: { temperature: 0.7, topP: 0.9 },
   });
 
   const raw = response.text ?? '';
-  const cleaned = raw.replace(/```json|```/g, '').trim();
-  const parsed = JSON.parse(cleaned) as { menus: MenuSuggestion[] };
+  // console.log('=== RAW GEMINI RESPONSE ===', raw);
 
+  const codeBlockMatch = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+  const jsonString = codeBlockMatch ? codeBlockMatch[1].trim() : raw.trim();
+
+  const jsonMatch = jsonString.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error('No JSON found in response');
+
+  const parsed = JSON.parse(jsonMatch[0]) as { menus: MenuSuggestion[] };
   return parsed.menus;
 }
-
-// ── Recipe Helpers ──────────────────
 
 export function buildRecipePrompt(
   menuName: string,
@@ -132,13 +136,17 @@ export async function generateRecipeText(
   prompt: string,
 ): Promise<RecipeDetail> {
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-2.5-flash-lite',
     contents: prompt,
   });
-
   const raw = response.text ?? '';
-  const cleaned = raw.replace(/```json|```/g, '').trim();
-  const parsed = JSON.parse(cleaned) as { recipe: RecipeDetail };
+  // console.log('=== RAW RECIPE RESPONSE ===', raw);
 
+  const codeBlockMatch = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+  const jsonString = codeBlockMatch ? codeBlockMatch[1].trim() : raw.trim();
+  const jsonMatch = jsonString.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error('No JSON found in response');
+
+  const parsed = JSON.parse(jsonMatch[0]) as { recipe: RecipeDetail };
   return parsed.recipe;
 }

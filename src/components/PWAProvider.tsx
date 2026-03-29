@@ -16,15 +16,12 @@ export default function PWAProvider() {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    // Cek apakah sudah pernah dismiss banner
     const isDismissed = localStorage.getItem('pwa-banner-dismissed');
     if (isDismissed) return;
 
-    // Tangkap event install prompt dari browser
     const handler = (e: Event) => {
       e.preventDefault();
       setInstallPrompt(e as BeforeInstallPromptEvent);
-      // Tampilkan banner setelah 3 detik
       setTimeout(() => setShowBanner(true), 3000);
     };
 
@@ -71,14 +68,16 @@ export default function PWAProvider() {
         {/* Actions */}
         <div className="flex flex-col gap-1.5 shrink-0">
           <button
+            type="button"
             onClick={handleInstall}
-            className="px-3 py-1.5 bg-accent text-black text-xs font-bold rounded-lg hover:bg-accent-light transition-colors"
+            className="px-3 py-1.5 bg-accent text-black text-xs font-bold rounded-lg hover:bg-accent-light transition-colors cursor-pointer"
           >
             Install
           </button>
           <button
+            type="button"
             onClick={handleDismiss}
-            className="px-3 py-1.5 text-text-muted text-xs hover:text-text-secondary transition-colors text-center"
+            className="px-3 py-1.5 text-text-muted text-xs hover:text-text-secondary transition-colors text-center cursor-pointer"
           >
             Nanti
           </button>

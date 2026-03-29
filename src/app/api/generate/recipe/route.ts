@@ -14,13 +14,17 @@ export async function POST(req: NextRequest) {
   }
 
   // Rate limit check
-  const ip = req.headers.get('x-forwarded-for') ?? 'anonymous';
-  const { success } = await ratelimit.limit(ip);
+  const forwarded = req.headers.get('x-forwarded-for');
+  const ip = forwarded ? forwarded.split(',')[0].trim() : 'anonymous';
+  const { success, reset } = await ratelimit.limit(ip);
+
   if (!success) {
+    const retryAfter = Math.ceil((reset - Date.now()) / 1000);
     return NextResponse.json(
       {
         error: 'Terlalu banyak request. Coba lagi sebentar.',
         errorType: 'rate_limit',
+        retryAfter,
       },
       { status: 429 },
     );
@@ -46,7 +50,23 @@ export async function POST(req: NextRequest) {
     let recipe;
     try {
       recipe = await generateRecipeText(ai, prompt);
-    } catch {
+      // console.log('=== RECIPE OK ===', recipe);
+    } catch (e) {
+      // console.log('=== PARSE ERROR ===', e);
+      const isGeminiQuota =
+        e instanceof Error && e.message.includes('RESOURCE_EXHAUSTED');
+
+      if (isGeminiQuota) {
+        return NextResponse.json(
+          {
+            error:
+              'Kuota AI sedang habis. Coba lagi besok atau dalam beberapa saat.',
+            errorType: 'api_error',
+          },
+          { status: 429 },
+        );
+      }
+
       return NextResponse.json(
         {
           error: 'AI memberikan response tidak valid',

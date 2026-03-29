@@ -4,10 +4,8 @@ import { useEffect } from 'react';
 
 export function useServiceWorker() {
   useEffect(() => {
-    // Skip di development — SW tidak dibutuhkan saat dev
     if (process.env.NODE_ENV === 'development') return;
 
-    // Skip kalau browser tidak support SW
     if (typeof window === 'undefined' || !('serviceWorker' in navigator))
       return;
 

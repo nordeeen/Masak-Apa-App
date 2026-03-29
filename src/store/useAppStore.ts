@@ -1,7 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AppStep, AppStore, Category, SavedRecipe } from '../types';
-import { AIErrorType } from '../lib/api';
+import {
+  AIErrorType,
+  AppStep,
+  AppStore,
+  Category,
+  SavedRecipe,
+} from '../types';
 
 const initialState = {
   step: 1 as AppStep,
@@ -13,8 +18,10 @@ const initialState = {
   isLoading: false,
   loadingMessage: '',
   error: null,
+  retryAfter: null,
   errorType: null as AIErrorType | null,
   savedRecipes: [],
+  hasHydrated: false,
 };
 
 export const useAppStore = create<AppStore>()(
@@ -22,7 +29,22 @@ export const useAppStore = create<AppStore>()(
     (set, get) => ({
       ...initialState,
 
-      setStep: (step) => set({ step, error: null, errorType: null }),
+      setStep: (step) => {
+        if (step === 1) {
+          return set({
+            step: 1,
+            error: null,
+            errorType: null,
+            retryAfter: null,
+            menuSuggestions: [],
+            selectedMenu: null,
+            recipeDetail: null,
+          });
+        }
+        return set({ step, error: null, errorType: null, retryAfter: null });
+      },
+
+      setHasHydrated: (hasHydrated: boolean) => set({ hasHydrated }),
 
       addIngredient: (ingredient) => {
         const { ingredients } = get();
@@ -39,8 +61,14 @@ export const useAppStore = create<AppStore>()(
 
       setLoading: (isLoading, message = '') =>
         set({ isLoading, loadingMessage: message }),
-      setError: (error, errorType = 'unknown') =>
-        set({ error, errorType: error ? errorType : null, isLoading: false }),
+
+      setError: (message, errorType, retryAfter = null) =>
+        set({
+          error: message,
+          errorType: message ? (errorType ?? null) : null,
+          retryAfter: message ? retryAfter : null,
+          isLoading: false,
+        }),
 
       setMenuSuggestions: (menuSuggestions) => set({ menuSuggestions }),
       selectMenu: (selectedMenu) => set({ selectedMenu }),
@@ -82,11 +110,23 @@ export const useAppStore = create<AppStore>()(
           loadingMessage: '',
           error: null,
           errorType: null,
+          retryAfter: null,
         }),
     }),
     {
       name: 'masakapa-storage',
-      partialize: (state) => ({ savedRecipes: state.savedRecipes }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
+      partialize: (state) => ({
+        savedRecipes: state.savedRecipes,
+        step: state.step,
+        menuSuggestions: state.menuSuggestions,
+        selectedMenu: state.selectedMenu,
+        recipeDetail: state.recipeDetail,
+        ingredients: state.ingredients,
+        selectedCategory: state.selectedCategory,
+      }),
     },
   ),
 );

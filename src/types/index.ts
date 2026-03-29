@@ -1,4 +1,9 @@
-import { AIErrorType } from '@/lib/api';
+export type AIErrorType =
+  | 'rate_limit'
+  | 'api_error'
+  | 'parse_error'
+  | 'network_error'
+  | 'unknown';
 
 export type Category =
   | 'Semua'
@@ -12,12 +17,12 @@ export interface MenuSuggestion {
   name: string;
   emoji: string;
   category: string;
-  estimatedTime: string; // e.g. "20 mnt"
+  estimatedTime: string;
   difficulty: 'Mudah' | 'Sedang' | 'Sulit';
   imageUrl: string;
   imageUrlFallback: string;
   shortDesc: string;
-  matchedIngredients: string[]; // bahan dari user yang cocok
+  matchedIngredients: string[];
 }
 
 export interface RecipeDetail {
@@ -32,13 +37,13 @@ export interface RecipeDetail {
   ingredients: Ingredient[];
   steps: string[];
   tips?: string;
-  youtubeSearchQuery: string; // query untuk YouTube search URL
+  youtubeSearchQuery: string;
 }
 
 export interface Ingredient {
   name: string;
-  amount: string; // e.g. "2 butir", "200 gram"
-  isUserHave?: boolean; // apakah user sudah punya bahan ini
+  amount: string;
+  isUserHave?: boolean;
 }
 
 export type AppStep = 1 | 2 | 3;
@@ -69,7 +74,7 @@ export interface SavedRecipe {
   emoji: string;
   category: string;
   estimatedTime: string;
-  savedAt: string; // ISO date string
+  savedAt: string;
   recipeDetail: RecipeDetail;
 }
 
@@ -107,14 +112,22 @@ export interface AppStore {
   error: string | null;
   errorType: AIErrorType | null;
   savedRecipes: SavedRecipe[];
+  retryAfter: number | null;
+  hasHydrated: boolean;
 
+  // actions
+  setHasHydrated: (hasHydrated: boolean) => void;
   setStep: (step: AppStep) => void;
   addIngredient: (ingredient: string) => void;
   removeIngredient: (ingredient: string) => void;
   clearIngredients: () => void;
   setCategory: (category: Category) => void;
   setLoading: (loading: boolean, message?: string) => void;
-  setError: (error: string | null, errorType?: AIErrorType) => void;
+  setError: (
+    message: string | null,
+    errorType?: AIErrorType,
+    retryAfter?: number | null,
+  ) => void;
   setMenuSuggestions: (menus: MenuSuggestion[]) => void;
   selectMenu: (menu: MenuSuggestion) => void;
   setRecipeDetail: (recipe: RecipeDetail) => void;
