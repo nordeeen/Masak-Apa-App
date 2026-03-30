@@ -24,6 +24,7 @@ export default function IngredientInput() {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="Ketik nama bahan, misal: ayam, tomat..."
+            aria-label="Masukkan nama bahan"
             className="flex-1 min-w-0 bg-transparent border-none outline-none text-sm text-text-primary placeholder:text-text-muted font-body"
           />
 

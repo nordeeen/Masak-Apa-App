@@ -10,9 +10,11 @@ export default function MenuCard({
   onSelect: () => void;
 }) {
   return (
-    <div
+    <button
+      type="button"
       onClick={onSelect}
-      className={`relative bg-surface rounded-2xl p-5 cursor-pointer border transition-all duration-200 overflow-hidden card-shadow card-shadow-hover
+      aria-pressed={selected}
+      className={`relative bg-surface rounded-2xl p-5 cursor-pointer border transition-all duration-200 overflow-hidden card-shadow card-shadow-hover text-left w-full
         hover:-translate-y-1
         ${
           selected
@@ -32,8 +34,8 @@ export default function MenuCard({
         {menu.name ?? '-'}
       </h3>
       <div className="flex gap-3 text-[11px] text-text-muted mb-3">
-        <span>⏱ {menu.estimatedTime ?? '-'}</span>
-        <span>📊 {menu.difficulty ?? '-'}</span>
+        <span aria-label={`Waktu: ${menu.estimatedTime ?? '-'}`}>⏱ {menu.estimatedTime ?? '-'}</span>
+        <span aria-label={`Kesulitan: ${menu.difficulty ?? '-'}`}>📊 {menu.difficulty ?? '-'}</span>
       </div>
       <p className="text-xs text-text-secondary leading-relaxed mb-3">
         {menu.shortDesc ?? '-'}
@@ -51,10 +53,10 @@ export default function MenuCard({
         </div>
       )}
       {selected && (
-        <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-accent flex items-center justify-center text-white text-xs font-bold">
+        <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-accent flex items-center justify-center text-white text-xs font-bold" aria-hidden="true">
           ✓
         </div>
       )}
-    </div>
+    </button>
   );
 }

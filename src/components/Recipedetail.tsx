@@ -56,11 +56,15 @@ export default function RecipeDetail({ recipe, menu }: Props) {
             <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
               📝 Cara Memasak
             </h3>
-            <Copy01Icon
+            <button
+              type="button"
               onClick={handleCopy}
-              className={`h-5 w-5 shrink-0 cursor-pointer transition-colors duration-200 
+              aria-label={copied ? 'Langkah berhasil disalin' : 'Salin langkah memasak'}
+              className={`shrink-0 cursor-pointer transition-colors duration-200 bg-transparent border-none p-1 rounded-lg hover:bg-card2
                 ${copied ? 'text-green-500' : 'text-text-muted hover:text-accent'}`}
-            />
+            >
+              <Copy01Icon className="h-5 w-5" />
+            </button>
           </div>
           <ol className="space-y-4">
             {recipe.steps.map((step, i) => (

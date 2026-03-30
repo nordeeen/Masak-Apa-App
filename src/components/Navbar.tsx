@@ -35,9 +35,11 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
+          aria-expanded={isOpen}
           className="md:hidden p-2 rounded-lg hover:bg-card2 transition cursor-pointer"
         >
-          <span className="text-xl">{isOpen ? '✕' : '☰'}</span>
+          <span className="text-xl" aria-hidden="true">{isOpen ? '✕' : '☰'}</span>
         </button>
       </div>
 
