@@ -1,6 +1,14 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import PWAProvider from '../components/PWAProvider';
+import { Plus_Jakarta_Sans } from 'next/font/google';
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '600', '800'],
+  variable: '--font-plus-jakarta',
+  display: 'swap',
+});
 
 export const viewport: Viewport = {
   themeColor: '#FEFCF9',
@@ -29,6 +37,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
+    apple: '/icons/icon-192.png',
   },
 };
 
@@ -38,23 +47,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
+    <html lang="id" className={plusJakarta.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
-          rel="stylesheet"
-        />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="MasakApa" />
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
       <body className="min-h-screen bg-base">
         {children}

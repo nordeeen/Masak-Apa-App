@@ -1,13 +1,14 @@
 'use client';
-
 import { useAppStore } from '../store/useAppStore';
 import { useHomeActions } from '@/hooks/useHomeAction';
 import LoadingState from '../components/LoadingState';
-import AIError_Component from '../components/AIError';
-import StepRecipe from '@/components/StepRecipe';
-import StepMenuPicker from '@/components/StepMenuPicker';
-import StepInput from '@/components/StepInput';
 import PageShell from '@/components/ShellPage';
+import dynamic from 'next/dynamic';
+
+const StepInput = dynamic(() => import('@/components/StepInput'));
+const StepMenuPicker = dynamic(() => import('@/components/StepMenuPicker'));
+const StepRecipe = dynamic(() => import('@/components/StepRecipe'));
+const AIError_Component = dynamic(() => import('@/components/AIError'));
 
 export default function Home() {
   const {
