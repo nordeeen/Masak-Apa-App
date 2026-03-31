@@ -16,7 +16,7 @@ export default function StepInput({
         <h1 className="font-display text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight text-text-primary mb-4">
           Bingung mau
           <br />
-          masak <em className="text-md text-accent not-italic">apa?</em>
+          masak <em className="text-md text-accent-dark not-italic">apa?</em>
         </h1>
         <p className="leading-relaxed max-w-md text-text-secondary">
           Masukkan bahan yang ada di dapurmu, AI akan carikan ide menu lengkap

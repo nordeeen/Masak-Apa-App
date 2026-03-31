@@ -1,7 +1,8 @@
 'use client';
-import { Copy01Icon } from 'hugeicons-react';
+import { Copy01Icon, CheckmarkSquare01Icon } from 'hugeicons-react';
 import { useRecipeActions } from '@/hooks/useRecipeAction';
 import type { RecipeDetail, Props } from '../types';
+import StatBox from './StatBox';
 
 export default function RecipeDetail({ recipe, menu }: Props) {
   const { saved, copied, handleCopy, toggleSave, youtubeUrl, reset } =
@@ -17,10 +18,10 @@ export default function RecipeDetail({ recipe, menu }: Props) {
           <p className="text-sm text-text-secondary leading-relaxed mb-4">
             {recipe.description ?? '-'}
           </p>
-          <div className="flex gap-5">
-            <Stat value={`⏱ ${recipe.estimatedTime ?? '-'}`} label="Waktu" />
-            <Stat value={`${recipe.servings ?? '-'} porsi`} label="Porsi" />
-            <Stat value={recipe.difficulty ?? '-'} label="Level" />
+          <div className="flex flex-row justify-between gap-5 sm:justify-evenly sm:gap-3">
+            <StatBox label="Waktu" value={`⏱ ${recipe.estimatedTime ?? '-'}`} />
+            <StatBox label="Porsi" value={`${recipe.servings ?? '-'} porsi`} />
+            <StatBox label="Level" value={recipe.difficulty ?? '-'} />
           </div>
         </div>
       </div>
@@ -35,8 +36,7 @@ export default function RecipeDetail({ recipe, menu }: Props) {
             {recipe.ingredients.map((ing, i) => (
               <li
                 key={i}
-                className="flex items-center gap-3 py-2.5 border-b border-border/60 last:border-none text-sm"
-              >
+                className="flex items-center gap-3 py-2.5 border-b border-border/60 last:border-none text-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                 <span className="flex-1 text-text-primary">{ing.name}</span>
                 <span className="text-text-muted text-xs">{ing.amount}</span>
@@ -59,19 +59,26 @@ export default function RecipeDetail({ recipe, menu }: Props) {
             <button
               type="button"
               onClick={handleCopy}
-              aria-label={copied ? 'Langkah berhasil disalin' : 'Salin langkah memasak'}
-              className={`shrink-0 cursor-pointer transition-colors duration-200 bg-transparent border-none p-1 rounded-lg hover:bg-card2
-                ${copied ? 'text-green-500' : 'text-text-muted hover:text-accent'}`}
-            >
-              <Copy01Icon className="h-5 w-5" />
+              aria-label={
+                copied ? 'Langkah berhasil disalin' : 'Salin langkah memasak'
+              }
+              className={`shrink-0 cursor-pointer transition-all duration-200 bg-transparent border-none p-2 
+                rounded-lg hover:bg-card2 active:scale-90 ${copied ? 'text-green-500' : 'text-text-muted hover:text-accent'}`}>
+              <span className="relative flex items-center justify-center">
+                <Copy01Icon
+                  className={`h-5 w-5 absolute transition-all duration-200  ${copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
+                />
+                <CheckmarkSquare01Icon
+                  className={`h-5 w-5 transition-all duration-200 ${copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
+                />
+              </span>
             </button>
           </div>
           <ol className="space-y-4">
             {recipe.steps.map((step, i) => (
               <li
                 key={i}
-                className="flex gap-3 text-sm text-text-secondary leading-relaxed"
-              >
+                className="flex gap-3 text-sm text-text-secondary leading-relaxed">
                 <span className="w-6 h-6 rounded-full bg-accent text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                   {i + 1}
                 </span>
@@ -96,8 +103,7 @@ export default function RecipeDetail({ recipe, menu }: Props) {
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-4 p-4 bg-surface border border-border rounded-xl hover:border-red-400/40 
-        hover:-translate-y-0.5 transition-all duration-200 mb-4 no-underline group card-shadow"
-      >
+        hover:-translate-y-0.5 transition-all duration-200 mb-4 no-underline group card-shadow">
         <div className="w-20 h-14 bg-card2 rounded-lg flex items-center justify-center text-2xl border border-border shrink-0">
           ▶️
         </div>
@@ -123,31 +129,16 @@ export default function RecipeDetail({ recipe, menu }: Props) {
             saved
               ? 'border-red-400/40 text-red-500 bg-red-50'
               : 'border-border text-text-secondary bg-surface hover:border-red-400/40 hover:text-red-500 card-shadow'
-          }`}
-        >
+          }`}>
           {saved ? '♥ Tersimpan' : '♡ Simpan Resep'}
         </button>
         <button
           type="button"
           onClick={reset}
           className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-accent cursor-pointer
-           hover:bg-accent-light text-white font-semibold text-sm rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
-        >
+           hover:bg-accent-light text-white font-semibold text-sm rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20">
           Cari Menu Baru
         </button>
-      </div>
-    </div>
-  );
-}
-
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <div className="font-display text-lg font-semibold text-accent">
-        {value}
-      </div>
-      <div className="text-[10px] text-text-muted uppercase tracking-wider mt-0.5">
-        {label}
       </div>
     </div>
   );

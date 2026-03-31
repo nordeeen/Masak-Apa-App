@@ -10,19 +10,18 @@
   --color-border2: #d4cec6;
 
   --color-accent: #e8521d;
-  --color-accent-light: #f06830;
-  --color-accent-dark: #cc4515;
-  --color-text-muted: #7a746e;
+  --color-accent-light: #bf4014;
+  --color-accent-dark: #b83e14;
 
-  --color-secondary: #5b8c5a;
-  --color-secondary-light: #7cab7b;
+  --color-secondary: #3d6e3c;
+  --color-secondary-light: #4a7549;
 
   --color-text-primary: #2d2a26;
   --color-text-secondary: #78716c;
-  --color-text-muted: #847b73;
+  --color-text-muted: #6b6460;
 
-  --color-success: #22c55e;
-  --color-danger: #ef4444;
+  --color-success: #15803d;
+  --color-danger: #b91c1c;
 
   --font-display: var(--font-plus-jakarta);
   --font-body: var(--font-plus-jakarta);
@@ -141,7 +140,7 @@ body {
 .btn-primary:hover {
   background: var(--color-accent-light);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.25);
+  box-shadow: 0 4px 14px rgba(191, 64, 20, 0.25);
 }
 
 .btn-secondary {

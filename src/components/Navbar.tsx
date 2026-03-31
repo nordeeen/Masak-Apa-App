@@ -3,16 +3,21 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import NavLink from './NavLink';
+import { useAppStore } from '@/store/useAppStore';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { reset } = useAppStore();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
+        <Link
+          href="/"
+          onClick={reset}
+          className="flex items-center gap-2.5 group">
           <span className="text-2xl group-hover:scale-110 transition-transform duration-200">
             🍳
           </span>
@@ -37,9 +42,10 @@ export default function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
           aria-expanded={isOpen}
-          className="md:hidden p-2 rounded-lg hover:bg-card2 transition cursor-pointer"
-        >
-          <span className="text-xl" aria-hidden="true">{isOpen ? '✕' : '☰'}</span>
+          className="md:hidden p-2 rounded-lg hover:bg-card2 transition cursor-pointer">
+          <span className="text-xl" aria-hidden="true">
+            {isOpen ? '✕' : '☰'}
+          </span>
         </button>
       </div>
 
