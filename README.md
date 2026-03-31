@@ -6,7 +6,7 @@ Temukan ide menu masakan dari bahan yang ada di rumah, powered by AI.
 
 ## Preview
 
-![MasakApa App](docs/ss-page.png)
+![MasakApa App](public/docs/ss-page.png)
 
 ---
 
