@@ -8,6 +8,7 @@ const plusJakarta = Plus_Jakarta_Sans({
   weight: ['400', '600', '800'],
   variable: '--font-plus-jakarta',
   display: 'swap',
+  preload: true,
 });
 
 export const viewport: Viewport = {
@@ -48,9 +49,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={plusJakarta.variable}>
-      <head>
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-      </head>
       <body className="min-h-screen bg-base">
         {children}
         <PWAProvider />

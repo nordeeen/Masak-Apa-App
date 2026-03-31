@@ -5,10 +5,18 @@ import LoadingState from '../components/LoadingState';
 import PageShell from '@/components/ShellPage';
 import dynamic from 'next/dynamic';
 
-const StepInput = dynamic(() => import('@/components/StepInput'));
-const StepMenuPicker = dynamic(() => import('@/components/StepMenuPicker'));
-const StepRecipe = dynamic(() => import('@/components/StepRecipe'));
-const AIError_Component = dynamic(() => import('@/components/AIError'));
+const StepInput = dynamic(() => import('@/components/StepInput'), {
+  loading: () => <LoadingState message="Memuat..." />,
+});
+const StepMenuPicker = dynamic(() => import('@/components/StepMenuPicker'), {
+  loading: () => <LoadingState message="Memuat..." />,
+});
+const StepRecipe = dynamic(() => import('@/components/StepRecipe'), {
+  loading: () => <LoadingState message="Memuat..." />,
+});
+const AIError_Component = dynamic(() => import('@/components/AIError'), {
+  loading: () => null,
+});
 
 export default function Home() {
   const {
